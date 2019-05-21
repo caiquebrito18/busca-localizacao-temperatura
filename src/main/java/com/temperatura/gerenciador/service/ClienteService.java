@@ -15,25 +15,77 @@ public class ClienteService {
 	@Autowired
 	private ClienteRepository clienteRepository;
 	
-	public List<Cliente> listar() {
-		return clienteRepository.findAll();
-	}
 	
-	public Cliente salvar(ClienteDto clienteDto) {
+	public ClienteDto salvar(ClienteDto clienteDto) {
 
 		Cliente cliente = new Cliente();
 
 		cliente.setNome(clienteDto.getNome());
+		cliente.setLatitude(clienteDto.getLatitude());
+		cliente.setLongitude(clienteDto.getLongitude());
+		cliente.setTempMin(clienteDto.getTempMin());
+		cliente.setTempMax(clienteDto.getTempMax());
 		cliente.setIdade(clienteDto.getIdade());
-		return clienteRepository.save(cliente);
-	}
-
-	public Cliente buscar(Long id) {
-		Cliente cliente = clienteRepository.findOne(id);
-
-		if (cliente == null) {
-			System.out.println("Não existe este cliente cadastrado");
+		
+		cliente = clienteRepository.save(cliente);
+		
+		if(cliente != null){
+			clienteDto.setId(cliente.getId());
 		}
-		return cliente;
+		
+		return clienteDto;
 	}
+	
+	public List<Cliente> listar() {
+		return clienteRepository.findAll();
+	}
+
+
+	public ClienteDto buscar(Long id) {
+		Cliente cliente = clienteRepository.findById(id);
+		ClienteDto clienteDto = new ClienteDto();
+		
+		if (cliente == null) {
+			System.out.println("Nao existe este cliente cadastrado");
+		}else{
+			clienteDto.setId(cliente.getId());
+			clienteDto.setNome(cliente.getNome());
+			clienteDto.setLatitude(cliente.getLatitude());
+			clienteDto.setLongitude(cliente.getLongitude());
+			clienteDto.setTempMin(cliente.getTempMin());
+			clienteDto.setTempMax(cliente.getTempMax());
+			clienteDto.setIdade(cliente.getIdade());
+		}
+		
+		return clienteDto;
+	}
+
+	public Cliente alterar(ClienteDto clienteDto, Long id) {
+
+		Cliente clienteExistente = clienteRepository.findOne(id);
+
+		clienteExistente.setNome(clienteDto.getNome());
+		clienteExistente.setIdade(clienteDto.getIdade());
+		return clienteRepository.save(clienteExistente);
+	}
+	
+	
+	public ClienteDto deletar(Long id) {
+		
+		Cliente cliente = clienteRepository.findById(id);
+		
+		ClienteDto clienteDto = new ClienteDto();
+		
+		if (cliente != null) {
+			clienteDto.setId(cliente.getId());
+			clienteDto.setNome(cliente.getNome());
+		}else if(cliente == null || cliente.getId() == null){
+			return null;
+		}
+		
+		clienteRepository.delete(id);
+		
+		return clienteDto;
+	}
+	
 }

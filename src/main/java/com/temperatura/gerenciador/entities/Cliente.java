@@ -27,6 +27,19 @@ public class Cliente implements Serializable{
 	
 	@Column(name = "idade", nullable = false)
 	private String idade;
+	
+	@Column(name = "latitude")
+	private String latitude;
+	
+	@Column(name = "longitude")
+	private String longitude;
+	
+	@Column(name = "tempMax")
+	private String tempMax;
+	
+	@Column(name = "tempMin")
+	private String tempMin;
+
 
 	public Long getId() {
 		return id;
@@ -52,5 +65,36 @@ public class Cliente implements Serializable{
 		this.idade = idade;
 	}
 
+	public String getLatitude() {
+		return latitude;
+	}
+
+	public void setLatitude(String latitude) {
+		this.latitude = latitude;
+	}
+
+	public String getLongitude() {
+		return longitude;
+	}
+
+	public void setLongitude(String longitude) {
+		this.longitude = longitude;
+	}
+
+	public String getTempMax() {
+		return tempMax;
+	}
+
+	public void setTempMax(String tempMax) {
+		this.tempMax = tempMax;
+	}
+
+	public String getTempMin() {
+		return tempMin;
+	}
+
+	public void setTempMin(String tempMin) {
+		this.tempMin = tempMin;
+	}
 
 }

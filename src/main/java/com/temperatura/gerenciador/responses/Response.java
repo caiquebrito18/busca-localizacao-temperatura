@@ -1,26 +1,37 @@
 package com.temperatura.gerenciador.responses;
 
-import java.util.List;
+import com.temperatura.gerenciador.dtos.ClienteDto;
 
-public class Response<T> {
-	private T data;
-	private List<String> errors;
+
+public class Response {
+	
+	private String mensagem;
+	
+	private ClienteDto cliente;
 	
 	
-	public T getData() {
-		return data;
-	}
-	public void setData(T data) {
-		this.data = data;
-	}
 	
-	public List<String> getErrors() {
-		return errors;
+	public String getMensagem() {
+		return mensagem;
 	}
-	public void setErrors(List<String> errors) {
-		this.errors = errors;
+
+	public void setMensagem(String mensagem) {
+		this.mensagem = mensagem;
 	}
-	
+
+	public ClienteDto getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(ClienteDto cliente) {
+		this.cliente = cliente;
+	}
+
+	public Response(String mensagem, ClienteDto cliente) {
+		this.mensagem = mensagem;
+		this.cliente = cliente;
+	}
+
 	public Response() {
 		
 	}
