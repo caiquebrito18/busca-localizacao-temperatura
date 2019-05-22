@@ -60,13 +60,18 @@ public class ClienteService {
 		return clienteDto;
 	}
 
-	public Cliente alterar(ClienteDto clienteDto, Long id) {
+	public Cliente alterar(ClienteDto clienteDto) {
 
-		Cliente clienteExistente = clienteRepository.findOne(id);
+		Cliente clienteExistente = clienteRepository.findOne(clienteDto.getId());
 
-		clienteExistente.setNome(clienteDto.getNome());
-		clienteExistente.setIdade(clienteDto.getIdade());
-		return clienteRepository.save(clienteExistente);
+		if(clienteExistente != null){
+			clienteExistente.setNome(clienteDto.getNome());
+			clienteExistente.setIdade(clienteDto.getIdade());	
+
+			clienteRepository.save(clienteExistente);
+		}
+
+		return clienteExistente;
 	}
 	
 	

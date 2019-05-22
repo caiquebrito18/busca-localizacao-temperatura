@@ -29,6 +29,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -152,22 +153,22 @@ public class GerenciadorLocalizacaoTemperaturaController {
 		}
 	}
 	
-	@GetMapping(path = "/alterar/{id}")
-	public ResponseEntity<Response> alterar(@PathVariable Long id, @RequestBody ClienteDto clienteDto) {
-		
-		if(id == null){
+	@PutMapping(path = "/alterar")
+	public ResponseEntity<Response> alterar(@RequestBody ClienteDto clienteDto) {
+
+		if(clienteDto == null || clienteDto.getId() == null){
 			return ResponseEntity.status(HttpStatus.OK).body(new Response("Informe o ID do cliente",null));
 		}else{
-			
-			this.clienteService.alterar(clienteDto, id);
-			
-			if(clienteDto == null){
+
+			Cliente cliente = this.clienteService.alterar(clienteDto);
+
+			if(cliente == null){
 				return ResponseEntity.status(HttpStatus.OK).body(new Response("Nao existe um cliente com esse ID.",null));
 			}
-			
+
 			return ResponseEntity.status(HttpStatus.OK).body(new Response("Cliente alterado com sucesso",clienteDto));
 		}
-		
+
 	}
 	
 	@GetMapping(path = "/delete/{id}")
