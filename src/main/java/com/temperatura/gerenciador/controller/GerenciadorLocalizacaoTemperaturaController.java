@@ -68,7 +68,7 @@ public class GerenciadorLocalizacaoTemperaturaController {
 			
 	        ObjectMapper mapper = new ObjectMapper();
 	        
-	        String jSon = chamarServico(IPVIGILANTE+"189.40.89.168");
+	        String jSon = chamarServico(IPVIGILANTE+inetAddress.getHostAddress());
 			
 			IP ipVigilante = mapper.readValue(jSon, IP.class);
 			
